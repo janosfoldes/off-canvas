@@ -1,6 +1,6 @@
 {
   "name": "@janosfoldes/off-canvas",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "JavaScript/CSS component for responsive off-canvas navigation menus and sidebars",
   "main": "dist/off-canvas.js",
   "scripts": {
@@ -12,8 +12,9 @@
   },
   "keywords": [
     "off-canvas",
+    "responsive",
     "menu",
-    "side bar"
+    "sidebar"
   ],
   "author": "János Földes",
   "license": "MIT",
