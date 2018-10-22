@@ -21,6 +21,8 @@ export default class OffCanvas {
     constructor(element) {
         /* Initialize */
         this._offCanvas = $(element);
+        this._parent = element.parentElement;
+        this._prevSibling = element.previousSibling;
         this._button = $('#' + this._offCanvas.attr(attrOffCanvasButton));
         this._buttonToggler = this._button.attr(attrToggler) || togglerDefault;
 
@@ -73,6 +75,17 @@ export default class OffCanvas {
         this._offCanvas.addClass(togglerNoAnim);
         let isButtonVisible = this._button.is(':visible');
         if (isButtonVisible != this._isButtonVisible) { // State changed
+            if (isButtonVisible) {
+                // Remove off-canvas element
+                this._offCanvas.insertAfter(overlay);
+            } else {
+                // Move off-canvas element back
+                if (this._prevSibling !== null) {
+                    this._offCanvas.insertAfter(this._prevSibling);
+                } else {
+                    this._offCanvas.prependTo(this._parent);
+                }
+            }
             this._offCanvas.toggleClass(togglerDefault, isButtonVisible);
             this.toggle(false);
             this._isButtonVisible = isButtonVisible;
