@@ -66,7 +66,7 @@ $off-canvas-z-index: 98 !default;
         // -------------
         &.left {
             bottom: get-setting($off-canvas-crop, left, 3);
-            height: 100vh;
+            height: calc(100vh - get-setting($off-canvas-crop, left, 1) - get-setting($off-canvas-crop, left, 3));
             max-width: get-setting($off-canvas-sizes, left, 2);
             min-width: get-setting($off-canvas-sizes, left, 1);
             left: get-setting($off-canvas-crop, left, 4);
@@ -81,7 +81,7 @@ $off-canvas-z-index: 98 !default;
         // --------------
         &.right {
             bottom: get-setting($off-canvas-crop, right, 3);
-            height: 100vh;
+            height: calc(100vh - get-setting($off-canvas-crop, right, 1) - get-setting($off-canvas-crop, right, 3));
             max-width: get-setting($off-canvas-sizes, right, 2);
             min-width: get-setting($off-canvas-sizes, right, 1);
             right: get-setting($off-canvas-crop, right, 2);
