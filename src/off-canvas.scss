@@ -7,6 +7,7 @@
 // Settings
 //---------
 
+$off-canvas-background: #0a0a0a !default;
 $off-canvas-crop: (
     bottom: (x 0 0 0),
     left:   (0 x 0 0),
@@ -34,6 +35,7 @@ $off-canvas-z-index: 98 !default;
     z-index: $off-canvas-z-index;
 
     @include breakpoint($off-canvas-reveal-at down) {
+        background: $off-canvas-background;
         box-shadow: $off-canvas-shadow;
         overflow-y: auto;
         position: fixed;
@@ -41,7 +43,6 @@ $off-canvas-z-index: 98 !default;
 
         // Disable Animation
         // -----------------
-
         &.no-anim {
             transition: none;
         }
