@@ -85,7 +85,7 @@ export default class OffCanvas {
                 // Remove off-canvas element
                 if (this._appendTo !== null) {
                     this._removed = true;
-                    this._offCanvas.appendTo($('#canvas'));
+                    this._offCanvas.appendTo(this._appendTo);
                 }
             } else {
                 if (this._removed) {
