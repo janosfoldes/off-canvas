@@ -1,6 +1,7 @@
 // OFF-CANVAS
 // ==========
 
+const attrAppendTo        = 'data-append-to';
 const attrClose           = 'data-close';
 const attrOffCanvas       = 'data-off-canvas';
 const attrOffCanvasButton = 'data-off-canvas-button';
@@ -23,6 +24,8 @@ export default class OffCanvas {
         this._offCanvas = $(element);
         this._parent = element.parentElement;
         this._prevSibling = element.previousSibling;
+        this._appendTo = $('#' + this._offCanvas.attr(attrAppendTo));
+        this._removed = false;
         this._button = $('#' + this._offCanvas.attr(attrOffCanvasButton));
         this._buttonToggler = this._button.attr(attrToggler) || togglerDefault;
 
@@ -77,13 +80,19 @@ export default class OffCanvas {
         if (isButtonVisible != this._isButtonVisible) { // State changed
             if (isButtonVisible) {
                 // Remove off-canvas element
-                this._offCanvas.insertAfter(overlay);
+                if (this._appendTo !== null) {
+                    this._removed = true;
+                    this._offCanvas.appendTo($('#canvas'));
+                }
             } else {
-                // Move off-canvas element back
-                if (this._prevSibling !== null) {
-                    this._offCanvas.insertAfter(this._prevSibling);
-                } else {
-                    this._offCanvas.prependTo(this._parent);
+                if (this._removed) {
+                    // Move off-canvas element back
+                    if (this._prevSibling !== null) {
+                        this._offCanvas.insertAfter(this._prevSibling);
+                    } else {
+                        this._offCanvas.prependTo(this._parent);
+                    }
+                    this._removed = false;
                 }
             }
             this._offCanvas.toggleClass(togglerDefault, isButtonVisible);
