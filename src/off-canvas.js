@@ -6,6 +6,7 @@ const attrClose           = 'data-close';
 const attrOffCanvas       = 'data-off-canvas';
 const attrOffCanvasButton = 'data-off-canvas-button';
 const attrOffCanvasLock   = 'data-off-canvas-lock';
+const attrSnapTopTo       = 'data-snap-top-to';
 const attrToggler         = 'data-toggler';
 const overlay             = $('<div class="canvas-overlay"></div>');
 const togglerClosed       = 'is-closed';
@@ -28,6 +29,7 @@ export default class OffCanvas {
         this._removed = false;
         this._button = $('#' + this._offCanvas.attr(attrOffCanvasButton));
         this._buttonToggler = this._button.attr(attrToggler) || togglerDefault;
+        this._snapTopTo = $('#' + this._offCanvas.attr(attrSnapTopTo));
 
         /* Initialize object to close */
         let closeId = this._offCanvas.attr(attrClose);
@@ -76,6 +78,7 @@ export default class OffCanvas {
 
     refresh() {
         this._offCanvas.addClass(togglerNoAnim);
+        this.snap();
         let isButtonVisible = this._button.is(':visible');
         if (isButtonVisible != this._isButtonVisible) { // State changed
             if (isButtonVisible) {
@@ -98,6 +101,13 @@ export default class OffCanvas {
             this._offCanvas.toggleClass(togglerDefault, isButtonVisible);
             this.toggle(false);
             this._isButtonVisible = isButtonVisible;
+        }
+    }
+
+    snap() {
+        // Snap Top
+        if (this._snapTopTo !== null) {
+            this._offCanvas.css('top', this._snapTopTo[0].getBoundingClientRect().bottom + 'px');
         }
     }
 
