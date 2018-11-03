@@ -5,7 +5,7 @@
 // @import 'foundation-sites/scss/util/util';
 
 // Settings
-//---------
+// ---------
 
 $off-canvas-background: #0a0a0a !default;
 $off-canvas-button-selector: '.off-canvas-button' !default;
@@ -30,7 +30,7 @@ $off-canvas-transition-timing: ease !default;
 $off-canvas-z-index: 98 !default;
 
 // Off-Canvas
-//-----------
+// -----------
 
 .off-canvas {
     z-index: $off-canvas-z-index;
@@ -128,12 +128,15 @@ $off-canvas-z-index: 98 !default;
     z-index: $off-canvas-z-index - 1;
 
     // Overlay Visible
-    //----------------
+    // ----------------
     &.is-visible {
         opacity: 1;
         visibility: visible;
     }
 }
+
+// Hide off-canvas button, when revealed
+// -------------------------------------
 
 #{$off-canvas-button-selector} {
     @include breakpoint($off-canvas-reveal-at) {
