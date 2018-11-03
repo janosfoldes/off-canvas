@@ -106,7 +106,7 @@ export default class OffCanvas {
 
     snap() {
         // Snap Top
-        if (this._snapTopTo !== null) {
+        if (this._snapTopTo.length > 0) {
             this._offCanvas.css('top', this._snapTopTo[0].getBoundingClientRect().bottom + 'px');
         }
     }
