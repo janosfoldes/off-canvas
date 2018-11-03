@@ -14,10 +14,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 // OFF-CANVAS
 // ==========
+var attrAppendTo = 'data-append-to';
 var attrClose = 'data-close';
 var attrOffCanvas = 'data-off-canvas';
 var attrOffCanvasButton = 'data-off-canvas-button';
 var attrOffCanvasLock = 'data-off-canvas-lock';
+var attrSnapTopTo = 'data-snap-top-to';
 var attrToggler = 'data-toggler';
 var overlay = $('<div class="canvas-overlay"></div>');
 var togglerClosed = 'is-closed';
@@ -38,8 +40,13 @@ function () {
 
     /* Initialize */
     this._offCanvas = $(element);
+    this._parent = element.parentElement;
+    this._prevSibling = element.previousSibling;
+    this._appendTo = $('#' + this._offCanvas.attr(attrAppendTo));
+    this._removed = false;
     this._button = $('#' + this._offCanvas.attr(attrOffCanvasButton));
     this._buttonToggler = this._button.attr(attrToggler) || togglerDefault;
+    this._snapTopTo = $('#' + this._offCanvas.attr(attrSnapTopTo));
     /* Initialize object to close */
 
     var closeId = this._offCanvas.attr(attrClose);
@@ -107,14 +114,44 @@ function () {
     value: function refresh() {
       this._offCanvas.addClass(togglerNoAnim);
 
+      this.snap();
+
       var isButtonVisible = this._button.is(':visible');
 
       if (isButtonVisible != this._isButtonVisible) {
         // State changed
+        if (isButtonVisible) {
+          // Remove off-canvas element
+          if (this._appendTo !== null) {
+            this._removed = true;
+
+            this._offCanvas.appendTo(this._appendTo);
+          }
+        } else {
+          if (this._removed) {
+            // Move off-canvas element back
+            if (this._prevSibling !== null) {
+              this._offCanvas.insertAfter(this._prevSibling);
+            } else {
+              this._offCanvas.prependTo(this._parent);
+            }
+
+            this._removed = false;
+          }
+        }
+
         this._offCanvas.toggleClass(togglerDefault, isButtonVisible);
 
         this.toggle(false);
         this._isButtonVisible = isButtonVisible;
+      }
+    }
+  }, {
+    key: "snap",
+    value: function snap() {
+      // Snap Top
+      if (this._snapTopTo.length > 0) {
+        this._offCanvas.css('top', this._snapTopTo[0].getBoundingClientRect().bottom + 'px');
       }
     }
   }, {
