@@ -43,7 +43,7 @@
     "@babel/register": "^7.9.0",
     "@janosfoldes/scss-utils": "^0.1.1",
     "babelify": "^10.0.0",
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.27.10",
     "browserify": "^16.5.1",
     "css-mqpacker": "^7.0.0",
     "cssnano": "^4.1.10",
